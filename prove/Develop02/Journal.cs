@@ -61,7 +61,7 @@ public class Journal
     public void LoadFromFile()
     {
         string filePath = "entries.json";
-        if (File.Exists(filePath))
+        if (File.Exists(filePath) && new FileInfo(filePath).Length > 0)
         {
             string jsonString = File.ReadAllText(filePath);
             _entries = JsonSerializer.Deserialize<List<Entry>>(jsonString);
@@ -71,6 +71,6 @@ public class Journal
     public void SaveToFile()
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
-        File.WriteAllText("entries.json", JsonSerializer.Serialize(_entries, options));
+        File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "entries.json"), JsonSerializer.Serialize(_entries, options));
     }
 }
