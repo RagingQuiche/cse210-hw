@@ -23,7 +23,7 @@ public class Journal
         Console.Write("What is the date? ");
         entry._date = Console.ReadLine();
         entry._prompt = SelectPrompt();
-        Console.Write($"Prompt: {entry._prompt}");
+        Console.Write($"Prompt: {entry._prompt} ");
         entry._response = Console.ReadLine();
         entry._edits = "";
         _entries.Add(entry);    
@@ -45,7 +45,7 @@ public class Journal
         Console.Write("What is the index of the entry you want to edit? ");
         string input = Console.ReadLine();
         int index = int.Parse(input);
-        Entry entry = _entries[index];
+        Entry entry = _entries[index - 1];
         Console.Write("Entry: ");
         entry.DisplayEntry();
         Console.Write("Enter your edits here: ");
