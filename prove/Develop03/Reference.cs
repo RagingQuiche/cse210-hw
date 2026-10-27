@@ -21,5 +21,16 @@ public class Reference
 
         return reference;
     }
-    
+
+    public void DisplayRef()
+    {
+        if (_endVerse != null)
+        {
+            Console.WriteLine($"{_book} {_chapter}: {_startVerse}-{_endVerse}");
+        }
+        else
+        {
+            Console.WriteLine($"{_book} {_chapter}: {_startVerse}");
+        }
+    }
 }

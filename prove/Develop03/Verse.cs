@@ -1,5 +1,4 @@
 using System;
-using System.Formats.Tar;
 
 public class Verse
 {
@@ -8,6 +7,11 @@ public class Verse
     public Verse(List<Word> wordList)
     {
         _wordList = wordList;
+    }
+
+    public List<Word> GetList()
+    {
+        return _wordList;
     }
 
     public void DisplayVerse()
@@ -25,18 +29,18 @@ public class Verse
                 {
                     blanks += "_";
                 }
-                sentence += blanks;
+                sentence += $"{blanks} ";
                 blanks = "";
             }
             else
             {
-                sentence += word;
+                sentence += $"{word} ";
             }
         }
         Console.WriteLine(sentence);
     }
 
-    public void HideWords(int numHidden)
+    public void HideWords(int numHidden=3)
     {   
         List<int> indecesNotHidden = new List<int>();
         Random random = new Random();
@@ -44,17 +48,31 @@ public class Verse
         {
             Word word = _wordList[i];
             bool hidden = word.GetIfHidden();
-            if (hidden == false)
+            if (!int.TryParse(word.GetWord(), out int number))
+                if (hidden == false)
+                {
+                    indecesNotHidden.Add(i);
+                }
+        }
+        if (numHidden <= indecesNotHidden.Count())
+        {
+            for (int j = 0; j < numHidden; j++)
             {
-                indecesNotHidden.Add(i);
+                int index = random.Next(0, indecesNotHidden.Count());
+                int targetIndex = indecesNotHidden[index];
+                _wordList[targetIndex].Hide();
+                indecesNotHidden.RemoveAt(index);
             }
         }
-        for (int j = 0; j < numHidden; j++)
+        else
         {
-            int index = random.Next(0, indecesNotHidden.Count());
-            int targetIndex = indecesNotHidden[index];
-            _wordList[targetIndex].Hide();
-            indecesNotHidden.RemoveAt(index);
-        }
+            for (int k = 0; k < indecesNotHidden.Count(); k++)
+            {
+                int index = random.Next(0, indecesNotHidden.Count());
+                int targetIndex = indecesNotHidden[index];
+                _wordList[targetIndex].Hide();
+                indecesNotHidden.RemoveAt(index);
+            }
+        }    
     }
 }
