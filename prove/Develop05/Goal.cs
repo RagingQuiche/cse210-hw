@@ -20,4 +20,9 @@ public abstract class Goal
     {
         return $"{_title}, {_description}, {_points}";
     }
+
+    public virtual int GetPoints()
+    {
+        return _points;
+    }
 }

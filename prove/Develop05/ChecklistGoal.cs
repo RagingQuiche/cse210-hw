@@ -20,7 +20,7 @@ public class ChecklistGoal : Goal
         return $"{_title}, {_description}, {_points}, {_progress}, {_end}";
     }
 
-    public void CompleteInstance()
+    public void CompleteOnce()
     {
         if (_progress < _end)
         {
@@ -36,5 +36,17 @@ public class ChecklistGoal : Goal
     public int GetGoal()
     {
         return _end;
+    }
+
+    public override int GetPoints()
+    {
+        if (_progress == _end)
+        {
+            return _points * 2;
+        }
+        else
+        {
+            return _points;
+        }
     }
 }
